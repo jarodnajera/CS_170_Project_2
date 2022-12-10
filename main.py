@@ -7,7 +7,9 @@ import time
 
 if __name__ == '__main__':
     # load data
-    data = numpy.loadtxt('CS170_Large_Data__64.txt')
+    file = input('Input file name:\n')
+    print('')
+    data = numpy.loadtxt(file)
     data = numpy.array(data)
 
     search_choice = int(input('Input 0 for Forward Elimination or 1 for Backwards Elimination\n'))
