@@ -18,6 +18,7 @@ if __name__ == '__main__':
     # Perform forward_elimination()
     if not search_choice:
         print('Performing Forward Elimination...')
+        # Calculate runtime
         start = time.time()
         nn.forward_elimination(data)
         end = time.time()
@@ -29,6 +30,7 @@ if __name__ == '__main__':
             print(f'Forward Elimination took {runtime/60:.2f} minutes')
     else:
         print('Performing Backward Elimination...')
+        # Calculate runtime
         start = time.time()
         nn.backward_elimination(data)
         end = time.time()

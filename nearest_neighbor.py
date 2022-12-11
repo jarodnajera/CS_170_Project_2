@@ -23,6 +23,7 @@ def forward_leave_one_out_cross_validation(data, current_set, feature_to_add):
 
     number_correctly_classified = 0
 
+    # Run nearest neighbor algorithm
     for j, i in enumerate(edited_data):
         object_to_classify = i[1:]
         label_object_to_classify = i[0]
@@ -49,6 +50,8 @@ def forward_leave_one_out_cross_validation(data, current_set, feature_to_add):
 
 # Forward Feature Search
 def forward_feature_search(data):
+    # Keep track of set of features being used and which
+    # features produce the highest accuracy
     current_set_of_features = set()
     num_features = len(data[0][1:])
     best_features = set()
@@ -67,10 +70,14 @@ def forward_feature_search(data):
                 print(f'Using feature(s) ({current_set_of_features}, {k+1}) accuracy is {accuracy:.3f}')
             
                 if accuracy > best_so_far_accuracy:
+                    # Keep track of which feature provided the highest accuracy
+                    # and consider adding it at the current level
                     best_so_far_accuracy = accuracy
                     feature_to_add_at_this_level = k+1
                 
                     if best_so_far_accuracy > best_accuracy:
+                        # Keep track of which set of features have
+                        # provided the highest accuracy
                         best_accuracy = copy.deepcopy(best_so_far_accuracy)
                         best_features = copy.deepcopy(current_set_of_features)
                         best_features.add(feature_to_add_at_this_level)
@@ -127,6 +134,8 @@ def backward_leave_one_out_cross_validation(data, current_set, feature_to_remove
 
 # Backward Feature Search
 def backward_feature_search(data):
+    # Keep track of set of features being used and which
+    # features produce the highest accuracy
     current_set_of_features = set()
     num_features = len(data[0][1:])
     for feature in range(num_features):
@@ -147,10 +156,15 @@ def backward_feature_search(data):
                 print(f'Using feature(s) ({current_set_of_features} without {k+1}), accuracy is {accuracy:.3f}')
             
                 if accuracy > best_so_far_accuracy:
+                    # Keep track of which feature provides the highest
+                    # accuracy when removed to the current set of features
+                    # and consider removing it completely
                     best_so_far_accuracy = accuracy
                     feature_to_remove_at_this_level = k+1
                 
                     if best_so_far_accuracy > best_accuracy:
+                        # Keep track of which set of features have
+                        # provided the highest accuracy
                         best_accuracy = copy.deepcopy(best_so_far_accuracy)
                         best_features = copy.deepcopy(current_set_of_features)
                         best_features.remove(feature_to_remove_at_this_level)
